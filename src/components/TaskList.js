@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export const TaskList = ({tasklist, setTasklist}) => {
 
@@ -9,6 +9,10 @@ export const TaskList = ({tasklist, setTasklist}) => {
     //     {id: 104, name: "task 4", time: "2:09:01 AM 9/14/2030"},
     //     {id: 105, name: "task 5", time: "2:09:01 AM 9/14/2030"}
     // ]
+    const handleDelete = (id) => {
+        const updatedTask= tasklist.filter(task => task.id !== id);
+        setTasklist(updatedTask)
+    }
 
   return (
     <section className="showTask">
@@ -17,7 +21,7 @@ export const TaskList = ({tasklist, setTasklist}) => {
                 <span className="title">Task</span>
                 <span className="count">0</span>
             </div>
-            <button className='clearAll'>Clear All</button>
+            <button onClick={()=> setTasklist([])} className='clearAll'>Clear All</button>
         </div>
         <ul>
             {tasklist.map((task)=> (
@@ -27,7 +31,7 @@ export const TaskList = ({tasklist, setTasklist}) => {
                         <span className="time">{task.time}</span>
                     </p>
                     <i className='bi bi-pencil-square'></i>
-                    <i className='bi bi-trash'></i>
+                    <i onClick={()=> handleDelete(task.id)} className='bi bi-trash'></i>
                 </li>
             ))}
         </ul>
