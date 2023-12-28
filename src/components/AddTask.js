@@ -1,23 +1,33 @@
 import React from 'react';
 
-export const AddTask = ({tasklist, setTasklist}) => {
+export const AddTask = ({tasklist, setTasklist, task, setTask}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
-        const date= new Date();
-        const newTask = {
+        if (task.id){
+            const date= new Date();
+            const updatedTaskList = tasklist.map((sTask)=>(
+                sTask.id=== task.id? {id: date.getTime(), name: task.name, time: `${date.toLocaleTimeString()} ${date.toLocaleDateString()}`}: sTask
+            ));
+            
+        setTasklist(updatedTaskList);
+        setTask({});
+        } else{
+            const date= new Date();
+            const newTask = {
             id: date.getTime(),
             name: e.target.task.value,
             time: `${date.toLocaleTimeString()} ${date.toLocaleDateString()}`
         }
         setTasklist([...tasklist, newTask])
-        e.target.task.value= "";
+        setTask({})
+        } 
     }
 
   return (
     <section className="addTask">
         <form onSubmit={handleSubmit}>
-            <input type="text" placeholder='Add task here' autoComplete='off' name='task' maxLength={15} />
-            <button>Add</button>
+            <input type="text" value={task.name || ""} placeholder='Add task here' autoComplete='off' name='task' maxLength={15} onChange={e => setTask ({...task, name: e.target.value})} />
+            <button>{(task.id)? "Update" : "Add" }</button>
         </form>
     </section>
   )

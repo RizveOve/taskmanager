@@ -6,12 +6,13 @@ import { TaskList } from './components/TaskList';
 
 function App() {
   const [tasklist, setTasklist] = useState([]);
+  const [task, setTask] = useState({});
 
   return (
     <>
       <Header/>
-      <AddTask tasklist= {tasklist} setTasklist= {setTasklist}/>
-      <TaskList tasklist= {tasklist} setTasklist= {setTasklist}/>
+      <AddTask tasklist= {tasklist} setTasklist= {setTasklist} task={task} setTask= {setTask}/>
+      <TaskList tasklist= {tasklist} setTasklist= {setTasklist} task={task} setTask= {setTask}/>
     </>
   );
 }
